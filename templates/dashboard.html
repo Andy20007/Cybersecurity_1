@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auth Log Dashboard</title>
+    <meta http-equiv="refresh" content="7">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        h2 {
+            color: #58a6ff;
+            text-shadow: 0 0 5px #58a6ff;
+        }
+
+        .table {
+            background-color: #161b22;
+            border-color: #30363d;
+        }
+
+        .table thead {
+            background-color: #21262d;
+            color: #58a6ff;
+        }
+
+        .table th, .table td {
+            border-color: #30363d;
+        }
+
+        .text-success {
+            color: #00ff00 !important;
+            text-shadow: 0 0 5px #00ff00;
+        }
+
+        .text-danger {
+            color: #ff5555 !important;
+            text-shadow: 0 0 5px #ff5555;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        tr:hover {
+            background-color: #24292f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="mb-4">🛡️ Authentication Log Dashboard</h2>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>User</th>
+                    <th>IP Address</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log.timestamp }}</td>
+                    <td>{{ log.user }}</td>
+                    <td>{{ log.ip }}</td>
+                    <td>
+                        {% if log.status == 'Accepted' %}
+                        <span class="text-success fw-bold">{{ log.status }}</span>
+                        {% else %}
+                        <span class="text-danger fw-bold">{{ log.status }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" class="text-center text-muted">No log entries found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
